@@ -5,6 +5,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
@@ -22,7 +23,7 @@ import java.util.Map;
 @Mixin(Block.class)
 public class BegierdeMixin {
     private static Map<Entity, BlockPos> map = new HashMap<Entity, BlockPos>();
-    @Inject(at = @At("HEAD"), method = "onSteppedOn")
+    @Inject(at = @At("RETURN"), method = "onSteppedOn")
     public void onSteppedOn(World world, BlockPos pos, BlockState state, Entity entity, CallbackInfo ci) {
         if (!world.isClient() && entity.isPlayer()) {
             if (map.containsKey(entity)){
@@ -37,8 +38,10 @@ public class BegierdeMixin {
             }
             ServerPlayerEntity serverPlayerEntity = (ServerPlayerEntity)entity;
             ItemStack itemStack = new ItemStack(state.getBlock());
+            PlayerInventory playerInventory = serverPlayerEntity.getInventory();
+            if ((playerInventory.getOccupiedSlotWithRoomForStack(itemStack) == -1) && playerInventory.getEmptySlot() == -1) return;
             ItemEntity itemEntity;
-            boolean bl = serverPlayerEntity.getInventory().insertStack(itemStack);
+            boolean bl = playerInventory.insertStack(itemStack);
             if (bl && itemStack.isEmpty()) {
                 itemStack.setCount(1);
                 itemEntity = serverPlayerEntity.dropItem(itemStack, false);
