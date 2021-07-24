@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "cn.yaxuan97.begierde.mixin",
+  "compatibilityLevel": "JAVA_16",
+  "mixins": [
+  ],
+  "client": [
+    "BegierdeMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

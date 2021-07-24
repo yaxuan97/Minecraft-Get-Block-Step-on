@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "id": "getblocksteppedon",
+  "version": "${version}",
+
+  "name": "Get block stepped on",
+  "description": "白嫖脚下的方块，fabric构建。",
+  "authors": [
+    "yaxuan97"
+  ],
+  "contact": {
+    "homepage": "https://yaxuan97.cn/",
+    "sources": "https://github.com/yaxuan97/Minecraft-Get-Block-Step-on"
+  },
+
+  "license": "GPL-3.0",
+  "icon": "assets/begierde/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "cn.yaxuan97.begierde.Begierde"
+    ]
+  },
+  "mixins": [
+    "begierde.mixins.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.11.3",
+    "fabric": "*",
+    "minecraft": "1.17.x",
+    "java": ">=16"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
+}
